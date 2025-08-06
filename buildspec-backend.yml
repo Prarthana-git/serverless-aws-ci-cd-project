@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - cd backend
+  build:
+    commands:
+      - zip function.zip index.js
+  post_build:
+    commands:
+      - aws lambda update-function-code --function-name helloLambda --zip-file fileb://function.zip
+artifacts:
+  files:
+    - backend/index.js
